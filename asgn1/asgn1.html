@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assignment 1</title>
+</head>
+<body onload="main()">
+  <canvas id="webgl" width="400" height="400" style="border:1px solid black;"></canvas>
+
+  <button onclick="currentType='point'">Points</button>
+  <button onclick="currentType='triangle'">Triangles</button>
+  <button onclick="currentType='circle'">Circles</button>
+  <button onclick="clearCanvas()">Clear</button>
+  <button onclick="drawPicture()">Draw Picture</button>
+
+  <br><br>
+
+  Red <input type="range" min="0" max="1" step="0.01" oninput="currentColor[0]=Number(this.value)">
+  Green <input type="range" min="0" max="1" step="0.01" oninput="currentColor[1]=Number(this.value)">
+  Blue <input type="range" min="0" max="1" step="0.01" oninput="currentColor[2]=Number(this.value)">
+
+  <br><br>
+
+  Size <input type="range" min="5" max="50" oninput="currentSize=Number(this.value)">
+  Segments <input type="range" min="3" max="50" oninput="currentSegments=Number(this.value)">
+
+  <script src="lib/webgl-utils.js"></script>
+  <script src="lib/webgl-debug.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
