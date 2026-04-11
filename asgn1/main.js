@@ -177,14 +177,75 @@ function clearCanvas() {
   renderAllShapes();
 }
 
+function drawCustomTriangle(vertices, color) {
+  let buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(a_Position);
+
+  gl.uniform4f(u_FragColor, color[0], color[1], color[2], 1.0);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
+
 function drawPicture() {
-  shapesList = [];
-  const size = 40;
+  gl.clear(gl.COLOR_BUFFER_BIT);
 
-  shapesList.push(new Triangle([0.0, 0.3], [1.0, 0.0, 0.0], size));
-  shapesList.push(new Triangle([0.0, -0.1], [0.0, 0.0, 1.0], size));
+  let sColor = [0.25, 0.65, 0.95];
+  let mColor = [0.95, 0.35, 0.7];
 
-  renderAllShapes();
+  // S
+  // top row
+  drawCustomTriangle([-0.74, 0.58, -0.56, 0.44, -0.38, 0.58], sColor);
+  drawCustomTriangle([-0.38, 0.58, -0.20, 0.44, -0.20, 0.58], sColor);
+
+  // upper-left bend
+  drawCustomTriangle([-0.70, 0.20, -0.58, 0.38, -0.46, 0.20], sColor);
+  drawCustomTriangle([-0.70, 0.20, -0.46, 0.20, -0.58, 0.02], sColor);
+
+  // center bar / connector
+  drawCustomTriangle([-0.58, 0.02, -0.40, 0.12, -0.28, 0.00], sColor);
+  drawCustomTriangle([-0.58, 0.02, -0.28, 0.00, -0.40, -0.10], sColor);
+
+  // right bend
+  drawCustomTriangle([-0.30, -0.02, -0.12, 0.08, -0.02, -0.10], sColor);
+  drawCustomTriangle([-0.30, -0.02, -0.02, -0.10, -0.14, -0.30], sColor);
+
+  // lower-left return
+  drawCustomTriangle([-0.46, -0.28, -0.28, -0.18, -0.16, -0.32], sColor);
+  drawCustomTriangle([-0.46, -0.28, -0.16, -0.32, -0.30, -0.46], sColor);
+
+  // bottom row
+  drawCustomTriangle([-0.74, -0.58, -0.56, -0.44, -0.38, -0.58], sColor);
+  drawCustomTriangle([-0.38, -0.58, -0.20, -0.44, -0.20, -0.58], sColor);
+
+  // M top row
+  drawCustomTriangle([0.05, 0.55, 0.25, 0.55, 0.15, 0.30], mColor);
+  drawCustomTriangle([0.25, 0.55, 0.45, 0.55, 0.35, 0.30], mColor);
+  drawCustomTriangle([0.45, 0.55, 0.65, 0.55, 0.55, 0.30], mColor);
+
+  // left column
+  drawCustomTriangle([0.15, 0.30, 0.25, 0.05, 0.05, 0.05], mColor);
+  drawCustomTriangle([0.05, 0.05, 0.25, 0.05, 0.15, -0.20], mColor);
+  drawCustomTriangle([0.15, -0.20, 0.25, -0.45, 0.05, -0.45], mColor);
+
+  // right column
+  drawCustomTriangle([0.55, 0.30, 0.65, 0.05, 0.45, 0.05], mColor);
+  drawCustomTriangle([0.45, 0.05, 0.65, 0.05, 0.55, -0.20], mColor);
+  drawCustomTriangle([0.55, -0.20, 0.65, -0.45, 0.45, -0.45], mColor);
+
+  // center hanging part
+  drawCustomTriangle([0.30, 0.30, 0.42, 0.30, 0.36, 0.10], mColor);
+  drawCustomTriangle([0.28, 0.10, 0.44, 0.10, 0.36, -0.10], mColor);
+  drawCustomTriangle([0.31, -0.10, 0.41, -0.10, 0.36, -0.28], mColor);
+}
+
+function updateEnemy() {
+  let speed = 0.01;
+
+  enemyPos[0] += (playerPos[0] - enemyPos[0]) * speed;
+  enemyPos[1] += (playerPos[1] - enemyPos[1]) * speed;
 }
 
 let isMouseDown = false;
