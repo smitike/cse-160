@@ -5,7 +5,18 @@
   <title>Assignment 1</title>
 </head>
 <body onload="main()">
-  <canvas id="webgl" width="400" height="400" style="border:1px solid black;"></canvas>
+  <div style="display: flex; align-items: flex-start; gap: 20px;">
+  
+    <!-- Canvas -->
+    <canvas id="webgl" width="400" height="400" style="border:1px solid black;"></canvas>
+
+    <!-- Reference Image -->
+    <div>
+      <p><b>Reference Drawing</b></p>
+      <img src="../drawing.png" width="400" style="border:1px solid black;">
+    </div>
+
+  </div>
 
   <button onclick="currentType='point'">Points</button>
   <button onclick="currentType='triangle'">Triangles</button>
@@ -24,9 +35,9 @@
   Size <input type="range" min="5" max="50" oninput="currentSize=Number(this.value)">
   Segments <input type="range" min="3" max="50" oninput="currentSegments=Number(this.value)">
 
-  <script src="lib/webgl-utils.js"></script>
-  <script src="lib/webgl-debug.js"></script>
-  <script src="lib/cuon-utils.js"></script>
+  <script src="../lib/webgl-utils.js"></script>
+  <script src="../lib/webgl-debug.js"></script>
+  <script src="../lib/cuon-utils.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
